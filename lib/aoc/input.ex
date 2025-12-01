@@ -64,4 +64,13 @@ defmodule Aoc.Input do
     |> String.split("\n\n", trim: true)
     |> Enum.map(&String.split(&1, "\n", trim: true))
   end
+
+  @doc """
+  Convenience: parse input into a grid (map of {x, y} => char).
+  """
+  def char_grid(day, opts \\ []) do
+    day
+    |> lines(opts)
+    |> Aoc.Grid.from_lines(& &1)
+  end
 end
