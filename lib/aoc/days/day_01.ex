@@ -31,18 +31,8 @@ defmodule Aoc.Days.Day01 do
   def part1(data) do
     data
     |> Enum.reduce({0, 50}, fn {dir, count}, {acc, pos} ->
-      next_pos =
-        case dir do
-          :left -> pos - count
-          :right -> pos + count
-        end
-        |> Integer.mod(100)
-      next_count =
-        if next_pos == 0 do
-          acc + 1
-        else
-          acc
-        end
+      next_pos = move(pos, dir, count)
+      next_count = if next_pos == 0, do: acc + 1, else: acc
       {next_count, next_pos}
     end)
     |> elem(0)
@@ -54,17 +44,38 @@ defmodule Aoc.Days.Day01 do
   def part2(data) do
     data
     |> Enum.reduce({0, 50}, fn {dir, count}, {acc, pos} ->
-      next_pos =
-        case dir do
-          :left -> pos - count
-          :right -> pos + count
-        end
-      {
-        abs(div(next_pos, 100)) + acc,
-        Integer.mod(next_pos, 100)
-      }
+      zero_hits = hits_zero(dir, count, pos)
+
+      next_pos = move(pos, dir, count)
+
+      {acc + zero_hits, next_pos}
     end)
     |> elem(0)
+  end
+
+  defp move(pos, dir, count) do
+    pos
+    |> Kernel.+(delta(dir, count))
+    |> Integer.mod(100)
+  end
+
+  defp delta(:left, count), do: -count
+  defp delta(:right, count), do: count
+
+  defp hits_zero(dir, count, pos) do
+    k0 =
+      case dir do
+        :right -> Integer.mod(100 - pos, 100)
+        :left -> Integer.mod(pos, 100)
+      end
+
+    first_hit = if k0 == 0, do: 100, else: k0
+
+    if count < first_hit do
+      0
+    else
+      div(count - first_hit, 100) + 1
+    end
   end
 
   @doc """
