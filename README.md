@@ -1,21 +1,24 @@
-# Aoc25ex
+# Advent of Code 2025 (Elixir)
 
-**TODO: Add description**
+Small utility kit plus day modules for solving Advent of Code 2025 in Elixir.
 
-## Installation
+## Inputs
+- Files live under `priv/inputs/day_XX/`.
+- Naming: `input.txt` for real input, `test.txt` for example input.
+- `Aoc.Input` helpers:  
+  - `raw(day, type)` -> raw string  
+  - `lines/2`, `integers/2`, `line_groups/2` -> common parsers  
+  - `path/2` builds the file path if you need it.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `aoc25ex` to your list of dependencies in `mix.exs`:
+## Running a day
+- CLI: `mix aoc <day>` (defaults to real input) or `mix aoc <day> test`.
+- From code: `Aoc.Runner.run(day, :input | :test)` returns `{part1, part2}`.
+- Each day module exposes `run/1`, `part1/1`, `part2/1`. Replace placeholder logic for days 2–12 with your solutions.
 
-```elixir
-def deps do
-  [
-    {:aoc25ex, "~> 0.1.0"}
-  ]
-end
-```
+## Utilities
+- `Aoc.Graph`: BFS, DFS, and A* helpers (see `lib/aoc/graph.ex` for signatures).
+- `Aoc.Input`: input reading/parsing helpers (see above).
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/aoc25ex>.
-
+## Tests
+- Run all tests: `mix test` (requires allowing Mix to start its pubsub listener).
+- Day-specific tests live under `test/aoc/day_XX_test.exs`; update expectations as you solve each day.
