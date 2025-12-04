@@ -17,14 +17,51 @@ defmodule Aoc.Days.Day03 do
   end
 
   @doc """
-  Find max
+  find the maximum n-digit number that can be formed from the list by skipping digits
   """
-  def find_max(list, max1 \\ 0, max2 \\ 0) do
-    case list do
-      [] -> (max1 * 10) + max2
-      [h | t] when max2 > max1 -> find_max(t, max2, h)
-      [h | t] when h > max2 -> find_max(t, max1, max(max2, h))
-      [_ | t] -> find_max(t, max1, max2)
+  def find_max(list, n) when is_integer(n) and n > 0 do
+    initial_maxes = Enum.take(list, n)
+    rest = Enum.drop(list, n)
+
+    find_max(rest, initial_maxes)
+  end
+
+  def find_max([], current) when is_list(current) do
+    Enum.reduce(current, 0, fn cur, acc -> acc * 10 + cur end)
+  end
+
+  def find_max([h | t], current) when is_list(current) do
+    new_current = update_maxes(current, h)
+    find_max(t, new_current)
+  end
+
+  # Append new val to list and remove 1 item from the list
+  # Option 1 the first item in the list less than its follower
+  # Option 2 if no such item, remove the last item
+  defp update_maxes(maxes, new_val) do
+    list = maxes ++ [new_val]
+
+    list
+    |> Enum.with_index()
+    |> Enum.reduce_while(nil, fn
+      {cur, idx}, _acc when idx < length(list) - 1 ->
+        next = Enum.at(list, idx + 1)
+
+        if cur < next do
+          {:halt, idx}
+        else
+          {:cont, nil}
+        end
+
+      {_cur, idx}, _acc when idx == length(list) - 1 ->
+        {:halt, idx}
+
+      _, acc ->
+        {:cont, acc}
+    end)
+    |> case do
+      nil -> Enum.drop(list, 1)
+      idx -> List.delete_at(list, idx)
     end
   end
 
@@ -34,15 +71,18 @@ defmodule Aoc.Days.Day03 do
   def part1(data) do
     data
     |> Enum.map(&tokenize_line/1)
-    |> Enum.map(&find_max/1)
+    |> Enum.map(&find_max(&1, 2))
     |> Enum.sum()
   end
 
   @doc """
   Placeholder Part 2: currently same as Part 1.
   """
-  def part2(_data) do
-    0
+  def part2(data) do
+    data
+    |> Enum.map(&tokenize_line/1)
+    |> Enum.map(&find_max(&1, 12))
+    |> Enum.sum()
   end
 
   @doc """

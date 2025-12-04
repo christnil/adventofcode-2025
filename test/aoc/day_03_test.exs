@@ -15,11 +15,11 @@ defmodule Aoc.Days.Day03Test do
   end
 
   test "finds max two numbers correctly" do
-    assert Day03.find_max([1, 2, 3, 4, 5]) == 45
-    assert Day03.find_max([5, 4, 3, 2, 1]) == 54
-    assert Day03.find_max([3, 1, 4, 1, 5, 9, 2, 6, 5]) == 96
-    assert Day03.find_max([9, 8, 7, 6, 5]) == 98
-    assert Day03.find_max([]) == 0
+    assert Day03.find_max([1, 2, 3, 4, 5], 2) == 45
+    assert Day03.find_max([5, 4, 3, 2, 1], 2) == 54
+    assert Day03.find_max([3, 1, 4, 1, 5, 9, 2, 6, 5], 2) == 96
+    assert Day03.find_max([9, 8, 7, 6, 5], 2) == 98
+    assert Day03.find_max([], 2) == 0
   end
 
   test "part1 on test input sums numbers" do
@@ -29,16 +29,16 @@ defmodule Aoc.Days.Day03Test do
 
   test "part2 on test input sums numbers" do
     data = Input.lines(@day, :test)
-    assert Day03.part2(data) == 0
+    assert Day03.part2(data) == 3121910778619
   end
 
   test "part1 on real input returns an integer" do
     data = Input.lines(@day, :input)
-    assert is_integer(Day03.part1(data))
+    assert Day03.part1(data) == 17324
   end
 
   test "part2 on real input returns an integer" do
     data = Input.lines(@day, :input)
-    assert is_integer(Day03.part2(data))
+    assert Day03.part2(data) == 171846613143331
   end
 end
