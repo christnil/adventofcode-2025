@@ -2,27 +2,24 @@ defmodule Aoc.Days.Day04Test do
   use ExUnit.Case, async: true
 
   alias Aoc.Days.Day04
-  alias Aoc.Input
-
-  @day 4
 
   test "part1 on test input sums numbers" do
-    data = Input.integers(@day, :test)
-    assert Day04.part1(data) == 12
+    data = Day04.get_data(:test)
+    assert Day04.part1(data) == 13
   end
 
   test "part2 on test input sums numbers" do
-    data = Input.integers(@day, :test)
-    assert Day04.part2(data) == 12
+    data = Day04.get_data(:test)
+    assert Day04.part2(data) == 43
   end
 
   test "part1 on real input returns an integer" do
-    data = Input.integers(@day, :input)
-    assert is_integer(Day04.part1(data))
+    data = Day04.get_data(:input)
+    assert Day04.part1(data) == 1549
   end
 
   test "part2 on real input returns an integer" do
-    data = Input.integers(@day, :input)
-    assert is_integer(Day04.part2(data))
+    data = Day04.get_data(:input)
+    assert Day04.part2(data) == 8887
   end
 end

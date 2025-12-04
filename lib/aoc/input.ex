@@ -57,6 +57,7 @@ defmodule Aoc.Input do
 
   @doc """
   Line groups separated by blank lines.
+  returns list of list of lines.
   """
   def line_groups(day, type \\ :input) do
     day
