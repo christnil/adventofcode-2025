@@ -55,6 +55,12 @@ defmodule Aoc.Grid do
   def move({x, y}, :right), do: {x + 1, y}
   def move({x, y}, {dx, dy}), do: {x + dx, y + dy}
 
+  def find_positions(grid, value) do
+    grid
+    |> Enum.filter(fn {_coord, v} -> v == value end)
+    |> Enum.map(fn {coord, _v} -> coord end)
+  end
+
   def print(grid, value_to_string \\ &to_string/1, io_device \\ :stdio) do
     {w, h} = size(grid)
 
