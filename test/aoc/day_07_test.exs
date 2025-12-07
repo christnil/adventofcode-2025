@@ -28,6 +28,6 @@ defmodule Aoc.Days.Day07Test do
   test "part2 on real input returns an integer" do
     data = Input.lines(@day, :input)
     |> Grid.from_lines()
-    assert is_integer(Day07.part2(data))
+    assert Day07.part2(data) == 24292631346665
   end
 end
