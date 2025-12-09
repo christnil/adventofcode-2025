@@ -20,6 +20,6 @@ defmodule Aoc.Days.Day09Test do
 
   test "part2 on real input returns an integer" do
     data = Day09.get_input(:input)
-    assert is_integer(Day09.part2(data))
+    assert Day09.part2(data) ==  1560475800
   end
 end
