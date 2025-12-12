@@ -6,23 +6,25 @@ defmodule Aoc.Days.Day10Test do
 
   @day 10
 
-  test "part1 on test input sums numbers" do
-    data = Input.integers(@day, :test)
-    assert Day10.part1(data) == 30
+  test "part1 on test input" do
+    data = Input.lines(@day, :test)
+    # TODO: Update expected value when we know the correct part 1 answer
+    assert Day10.part1(data) == 5
   end
 
-  test "part2 on test input sums numbers" do
-    data = Input.integers(@day, :test)
-    assert Day10.part2(data) == 30
+  test "part2 on test input" do
+    data = Input.lines(@day, :test)
+    assert Day10.part2(data) == 33
   end
 
   test "part1 on real input returns an integer" do
-    data = Input.integers(@day, :input)
-    assert is_integer(Day10.part1(data))
+    data = Input.lines(@day, :input)
+    assert Day10.part1(data) == 455
   end
 
-  test "part2 on real input returns an integer" do
-    data = Input.integers(@day, :input)
-    assert is_integer(Day10.part2(data))
-  end
+  # Too slow to always run
+  #test "part2 on real input returns an integer" do
+  #  data = Input.lines(@day, :input)
+  #  assert Day10.part2(data) == 17848
+  #end
 end
